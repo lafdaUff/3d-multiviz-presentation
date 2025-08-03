@@ -1,34 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Sidebar from './components/Sidebar/Sidebar'
+import { type ModelData } from './components/viewport/Experience'
+
+import { useState } from 'react'
+import ObjectsContext from './ObjectsContext'
+import Viewport from './components/viewport/Viewport'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [currentObjects, setCurrentObjects] = useState<ModelData[]>([])
+
+  const [selectedMetadata, setSelectedMetadata] = useState<ModelData | null>(null)
+
+  function handleObjectSelect(data: ModelData | null) {
+    setSelectedMetadata(data);
+  }
+
+  function cleanMetadata() {
+    handleObjectSelect(null)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='hero flex'>
+      <ObjectsContext.Provider value={{currentObjects, setCurrentObjects}}>
+        <Sidebar objectData={selectedMetadata} cleanMetadata={cleanMetadata} />
+        <Viewport onObjectSelect={handleObjectSelect}/>
+      </ObjectsContext.Provider>
+    </div>
   )
 }
 
