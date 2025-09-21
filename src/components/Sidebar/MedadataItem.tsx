@@ -1,5 +1,4 @@
-import type { CustomData } from "../../data/schema";
-import schema from "../../data/dataschema";
+import schema from "../../data/dataschema.json";
 
 interface MetadataItemProps {
   metadataEntry: Record<string, any>;
