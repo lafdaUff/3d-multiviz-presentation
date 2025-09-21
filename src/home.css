@@ -1,0 +1,102 @@
+.header .multiVizLogo{
+    width: calc(var(--space-xl-2xl) + 40px);
+}
+.header{
+    padding: 30px 0;
+    width: 100%;
+    max-width: 1440px;
+    justify-content: space-between;
+    align-items: center;
+}
+nav a{
+    text-decoration: none;
+}
+nav ul{
+    gap: 20px;
+    flex-direction: row;
+    align-items: center;
+}
+nav ul li{
+  list-style: none;
+}
+nav i {
+    font-size: var(--step-1);
+}
+.homeHero{
+    max-width: 1440px;
+    height: 85vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.heroContent{
+    width: 30%;
+    flex-direction: column;
+    gap: 12px;
+}
+.heroButtons{
+    gap: 12px;
+}
+.heroTitle{
+    line-height: 1;
+}
+.gridParent {
+    height: 90%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+}
+
+.div1 { grid-area: 1 / 2 / 3 / 4; }
+.div2 { grid-area: 3 / 1 / 5 / 2; }
+.div3 { grid-area: 5 / 1 / 7 / 2; }
+.div4 { grid-area: 3 / 2 / 6 / 3; }
+.div5 { grid-area: 3 / 3 / 5 / 4; }
+
+.heroGrid{
+    width: 40%;
+    height: 100%;
+}
+
+.grid-item{
+    border-radius: 20px;
+}
+
+.demo{
+    max-width: 1440px;
+    align-items: center;
+    background: radial-gradient(circle, var(--renderer-color-1) 0%, var(--renderer-color-2) 100%);
+    border-radius: 20px;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.demo h2{
+    line-height: 1;
+}
+
+.demoText{
+    flex-direction: column;
+    gap: 12px;
+    max-width: 40%;
+    align-items: flex-start;
+    padding: 40px;
+}
+
+.demoImage{
+    max-width: 22%;
+    margin-right: 40px;
+}
+
+.demo img{
+    width: 100%;
+}
+.footer{
+    width: 100%;
+    padding: 20px 0;
+    max-width: 1440px;
+    justify-content: center;
+    align-items: center;
+}

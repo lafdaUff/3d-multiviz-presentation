@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef} from 'react';
+import { useMemo, useState, useRef, useEffect} from 'react';
 import * as THREE from 'three';
 import { OrbitControls, PresentationControls } from '@react-three/drei';
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
@@ -75,6 +75,16 @@ export function Experience({
       controlsRef.current.update();
     }
   });
+
+  // Set initial camera position when cameraLock is false
+  useEffect(() => {
+    if (!cameraLock && controlsRef.current) {
+      // Set closer initial position for free camera mode
+      camera.position.set(0.5, 0.75, 1.85);
+      camera.lookAt(0, 0, 0);
+      controlsRef.current.update();
+    }
+  }, [cameraLock, camera]);
 
   // Função para focar na câmera
   const focusOnObject = (modelData: ModelData, position: THREE.Vector3) => {
