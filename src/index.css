@@ -89,11 +89,23 @@ small{
   flex-direction: row;
 }
 
+.clip-left{
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%);
+}
+.clip-right{
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+.canvas-container {
+  position: absolute;
+}
+
 .viewport{
   width: 100%;
   border-radius: 20px;
   position: relative;
   overflow: hidden;
+  flex-wrap: wrap;
 }
 .viewport:hover{
   cursor: grab;
@@ -122,10 +134,47 @@ small{
 .viewportBtn:hover{
   cursor: pointer;
 }
+
+.mode-icon{
+  height: 14px;
+  display: block;
+}
+
+.mode-selector{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--text-color);
+  border-radius: 30px;
+  color: var(--text-color);
+}
+
+.mode-button{
+  background: none;
+  padding: 10px 14px;
+  border-radius: 30px;
+  pointer-events: all;
+  display: block;
+  font-size: var(--step--1);
+}
+
+.mode-selector .selected{
+  color: var(--bg-color);
+  background-color: var(--text-color);
+  
+}
+
 .viewportTop{
-  justify-content: end;
+  justify-content: space-between;
   gap: 10px;
   align-content: center;
+}
+
+.viewportInteraction{
+  gap: 10px;
+  align-content: center;
+  align-items: flex-start;
 }
 .viewportBottom div{
   width: 80%;
@@ -223,7 +272,7 @@ button{
   border-radius: 10px;
   background-color: #141414;
   font-size: var(--step-0);
-  border: 1px transparent solid;
+  border: 1px solid transparent;
   color: var(--text-color);
 }
 
@@ -277,7 +326,7 @@ button:hover{
   position: relative;
   width: 100%;
   height: 100%;
-  overflow-y: clip;
+  overflow-y: hidden;
 }
 ul{
   list-style: none;
@@ -291,7 +340,7 @@ ul{
   height: 100%;
   flex: 1;
   overflow-y: auto;
-  
+  padding-bottom: 50px;
 }
 ul {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
@@ -323,11 +372,11 @@ ul::-webkit-scrollbar {
 .selectable-item{
   border: solid 1px transparent;
   position: relative;
-  min-width: 30%;
+  min-width: 45%;
   padding: 10px 10px;
   text-decoration: none;
   list-style: none;
-  /* background-color: #121212; */
+  background-color: var(--renderer-color-1);
   background-size: cover;
   background-position: center;
   border-radius: 15px;
@@ -362,6 +411,13 @@ ul::-webkit-scrollbar {
 .tooltip.visible {
   visibility: visible;
   opacity: 1;
+}
+
+.tooltip img{
+  width: 100%;
+  max-width: 200px;
+  border-radius: 10px;
+  margin-top: 5px;
 }
 
 .objetos .selected{
@@ -432,6 +488,7 @@ ul::-webkit-scrollbar {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
+    padding-bottom: 0;
   }
   .metadata-div > ul{
     flex-direction: column;

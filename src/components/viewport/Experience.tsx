@@ -1,9 +1,9 @@
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef} from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, PresentationControls } from '@react-three/drei';
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { EffectComposer, Outline } from '@react-three/postprocessing';
-import { useThree } from '@react-three/fiber';
+import { useThree, useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
 import Model from './Model';
 import data from '../../data/database.json' with { type: 'json' }; 
@@ -19,6 +19,9 @@ export interface ModelData {
 interface ExperienceProps {
   onObjectSelect: (data: ModelData | null) => void;
   currentObjects?: ModelData[];
+  cameraLock?: boolean;
+  syncedCameraRef?: React.RefObject<OrbitControlsImpl | null> | null;
+  isMaster?: boolean;
 }
 
 function useRadialGradientBackground(color1: string, color2: string) {
@@ -40,7 +43,13 @@ function useRadialGradientBackground(color1: string, color2: string) {
   return texture;
 }
 
-export function Experience({ onObjectSelect, currentObjects = [] }: ExperienceProps) {
+export function Experience({ 
+  onObjectSelect, 
+  currentObjects = [], 
+  cameraLock = false, 
+  syncedCameraRef,
+  isMaster = false 
+}: ExperienceProps) {
   const { camera } = useThree();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const [hoveredObject, setHoveredObject] = useState<THREE.Object3D | null>(null);
@@ -48,9 +57,29 @@ export function Experience({ onObjectSelect, currentObjects = [] }: ExperiencePr
   // Cores para o fundo
   const bgColor = useRadialGradientBackground('#2b2b2b', '#1c1c1c');
 
+  if (syncedCameraRef && controlsRef.current) {
+      if (isMaster) {
+        
+        syncedCameraRef.current = controlsRef.current;
+      }
+    }
+
+  useFrame(() => {
+    if (syncedCameraRef?.current && !isMaster && controlsRef.current) {
+      const masterControls = syncedCameraRef.current;
+      
+      
+      camera.position.copy(masterControls.object.position);
+      camera.quaternion.copy(masterControls.object.quaternion);
+      controlsRef.current.target.copy(masterControls.target);
+      controlsRef.current.update();
+    }
+  });
+
   // Função para focar na câmera
   const focusOnObject = (modelData: ModelData, position: THREE.Vector3) => {
     if (!controlsRef.current) return;
+    if (cameraLock) return;
 
     
     gsap.killTweensOf([controlsRef.current.target, camera.position]);
@@ -95,7 +124,7 @@ export function Experience({ onObjectSelect, currentObjects = [] }: ExperiencePr
     
     if (controlsRef.current) {
       gsap.killTweensOf([controlsRef.current.target, camera.position]);
-      controlsRef.current.enabled = true;
+      // controlsRef.current.enabled = true;
     }
   };
 
@@ -112,6 +141,15 @@ export function Experience({ onObjectSelect, currentObjects = [] }: ExperiencePr
     clearSelection();
   };
 
+  
+
+  if (cameraLock) {
+    if (controlsRef.current) {
+      camera.position.set(((currentObjects.length - 1) * 1.5) / 2, 0.5, 0.75 * currentObjects.length);
+      camera.lookAt(((currentObjects.length - 1) * 1.5) / 2, 0, 0);
+    }
+  }
+
   return (
     <>
       <primitive object={bgColor} attach="background" />
@@ -120,8 +158,14 @@ export function Experience({ onObjectSelect, currentObjects = [] }: ExperiencePr
       <ambientLight intensity={5} />
       <directionalLight position={[5, 10, 7.5]} intensity={2} />
 
-      {/* Controles */}
-      <OrbitControls ref={controlsRef} enableDamping dampingFactor={0.25} makeDefault />
+      {/* Controles*/}
+      <OrbitControls 
+        ref={controlsRef} 
+        enableDamping 
+        enabled={!cameraLock && (isMaster || !syncedCameraRef)} 
+        dampingFactor={0.25} 
+        makeDefault 
+      />
 
       {/* Background para capturar cliques */}
       <mesh onClick={handleBackgroundClick} visible={false}>
@@ -131,13 +175,23 @@ export function Experience({ onObjectSelect, currentObjects = [] }: ExperiencePr
 
       {/* Renderiza todos os modelos do arquivo de dados */}
       {currentObjects.map((modelInfo, index) => (
-        <Model
-          key={modelInfo.link}
-          modelLink={modelInfo.link}
-          position={[index * 1.5, 0, 0]} // Espaçamento entre modelos
-          onHover={setHoveredObject}
-          onClick={handleModelClick}
-        />
+        <group key={modelInfo.link} position={[index * 1.5, 0, 0]}>
+          <PresentationControls 
+            cursor={false}
+            enabled={cameraLock}
+            polar={[-Infinity, Infinity]}
+            snap={true}
+            speed={1.5}
+            global={true}
+          >
+            <Model
+              modelLink={modelInfo.link}
+              position={[0, 0, 0]} // Reset to origin since group handles positioning
+              onHover={setHoveredObject}
+              onClick={handleModelClick}
+            />
+          </PresentationControls>
+        </group>
       ))}
       
       {/* Efeitos de Pós-processamento */}
