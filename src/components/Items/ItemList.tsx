@@ -9,7 +9,7 @@ import Tooltip from './Tooltip'
 import { type TooltipProps } from './Tooltip'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import { A11y } from 'swiper/modules';
-import 'swiper/css';
+import 'swiper/css.css';
 
 export default function ItemList({list} : {list: ModelData[]}){
 
