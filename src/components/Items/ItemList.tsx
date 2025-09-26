@@ -1,6 +1,8 @@
 
 import Item from './Item'
-import {  useContext, useRef, useState } from 'react'
+
+import {  useContext, useState, useRef } from 'react'
+
 import ObjectsContext from '../../ObjectsContext'
 import { type ModelData } from '../viewport/Experience'
 import Tooltip from './Tooltip'
@@ -12,38 +14,47 @@ export default function ItemList({list} : {list: ModelData[]}){
 
     const [tooltipContent, setTooltipContent] = useState<TooltipProps>()
 
-     const itemRefs = useRef<Map<string, HTMLLIElement>>(new Map());
 
-  function handleItemClick(item: ModelData) {
-    setCurrentObjects((prevSelected) => {
-      let newSelection;
-      if (prevSelected.includes(item)) {
-        newSelection = prevSelected.filter((link) => link != item);
-      } else {
-        newSelection = [...prevSelected, item];
-      }
+    const itemRefs = useRef<Map<string, HTMLLIElement>>(new Map())
+    const listaRef = useRef<HTMLDivElement>(null)
+    
+    const isMobile = window.innerWidth <= 768
 
-      // 🔥 centraliza o item no scroll
-      const el = itemRefs.current.get(item.link);
-      if (el) {
-        el.scrollIntoView({
-          behavior: "smooth",
-          inline: "center", // use "block: 'center'" se for vertical
-          block: "nearest",
+    function handleItemClick(item: ModelData) {
+        setCurrentObjects((prevSelected) => {
+        let newSelection;
+        if (prevSelected.includes(item)) {
+            newSelection = prevSelected.filter((link) => link != item);
+        } else {
+            newSelection = [...prevSelected, item];
+        }
+
+        const el = itemRefs.current.get(item.link);
+        if (el) {
+            el.scrollIntoView({
+            behavior: "smooth",
+            inline: "center", 
+            block: "nearest",
+            });
+        }
+
+        return newSelection;
         });
-      }
+    }
 
-      return newSelection;
-    });
-  }
     function handleItemEnter(event : React.MouseEvent<HTMLLIElement>, item: ModelData){
-        const rect = event.currentTarget.getBoundingClientRect();
+        const rect = event.currentTarget.getBoundingClientRect()
+        const listaRect = listaRef.current?.getBoundingClientRect()
+        if(isMobile && listaRect){
+            setTooltipContent({location: {x: listaRect.left + listaRect.width / 3, y: listaRect.top - 50}, content: {title: item.nome, desc: item.descricao}})
+            return
+        }
         setTooltipContent({location: {x: rect.right + 10, y: rect.top}, content: {title: item.nome, desc: item.descricao}})
     }
 
     return(
         <>
-            <div className="lista">
+            <div className="lista" ref={listaRef}>
                 <div className="gradient"></div>
                 <ul id="objetos" className="objetos">
                     { list.length > 0 ? list.map(item => (
