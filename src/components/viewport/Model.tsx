@@ -26,8 +26,7 @@ export default function Model({modelLink, position, onHover, onClick} : ModelPro
         return clone
     }, [scene, modelLink])
 
-    const boundingBox = new THREE.Box3().setFromObject(clonedScene)
-    const width = boundingBox.max.x - boundingBox.min.x
+    
 
     function handleClick(event: ThreeEvent<MouseEvent>) {
         event.stopPropagation()
