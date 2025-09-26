@@ -12,7 +12,7 @@ export default function Viewport({ onObjectSelect }: { onObjectSelect: (data: Mo
     const { currentObjects } = useContext(ObjectsContext);
 
     const [isInfoScreenVisible, setInfoScreenVisible] = useState(false);
-    
+    const [isCameraLocked, setCameraLocked] = useState(false);
     const [masterCamera, setMasterCamera] = useState<number | null>(null);
 
     // Add ref for camera controls synchronization
@@ -22,7 +22,10 @@ export default function Viewport({ onObjectSelect }: { onObjectSelect: (data: Mo
         setInfoScreenVisible(!isInfoScreenVisible);
     }
 
-    
+    function toggleLock() {
+        setCameraLocked(!isCameraLocked);
+        console.log('Camera lock toggled:', !isCameraLocked);
+    }
 
     const [selectedMode, setSelectedMode] = useState('mode1');
 
@@ -36,7 +39,7 @@ return (
                         <Experience
                             onObjectSelect={onObjectSelect} 
                             currentObjects={[object]}
-                            cameraLock={false} 
+                            cameraLock={isCameraLocked} 
                             syncedCameraRef={cameraControlsRef}
                             isMaster={index === masterCamera}
                         />
@@ -48,7 +51,7 @@ return (
             }
             <ModeContext.Provider value={{ currentMode: selectedMode, setCurrentMode: setSelectedMode }}>
                 <div className='viewportContent flex'>
-                    <TopBar toggleInfoScreen={ToggleInfoScreen}/>
+                    <TopBar toggleInfoScreen={ToggleInfoScreen} toggleLock={toggleLock} isCameraLocked={isCameraLocked}/>
                     <BottomBar />
                     {isInfoScreenVisible && <InfoScreen toggleInfoScreen={ToggleInfoScreen} />}
             </div>
