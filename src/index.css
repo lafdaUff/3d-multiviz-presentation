@@ -434,12 +434,10 @@ button:hover{
   margin-top: 5px;
 }
 
-.objetos .selected{
+.lista .selectedItem{
   border: 1px green solid;
   color: var(--text-color);
 }
-
-
 
 .side-menu{
   width: 20%;

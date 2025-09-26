@@ -7,6 +7,9 @@ import ObjectsContext from '../../ObjectsContext'
 import { type ModelData } from '../viewport/Experience'
 import Tooltip from './Tooltip'
 import { type TooltipProps } from './Tooltip'
+import {Swiper, SwiperSlide} from 'swiper/react'
+import { A11y } from 'swiper/modules';
+import 'swiper/css';
 
 export default function ItemList({list} : {list: ModelData[]}){
 
@@ -56,7 +59,32 @@ export default function ItemList({list} : {list: ModelData[]}){
         <>
             <div className="lista" ref={listaRef}>
                 <div className="gradient"></div>
-                <ul id="objetos" className="objetos">
+                {
+                    isMobile ? 
+                    <Swiper
+                        modules={[ A11y]} 
+                        spaceBetween={5}
+                        slidesPerView={3}
+                        scrollbar={{ draggable: true }}
+                        initialSlide={0}
+                    >
+                    { list.length > 0 ? list.map(item => (
+                        <SwiperSlide key={item.link}>
+                            <Item
+                                ref={(el: HTMLLIElement | null) => {
+                                    if (el) itemRefs.current.set(item.link, el);
+                                }}
+                                selected={currentObjects.includes(item)}
+                                item={{image: item.thumb}}
+                                onMouseEnter={(event) => handleItemEnter(event, item)}
+                                onMouseLeave={() => setTooltipContent(undefined)}
+                                onClick = {() => handleItemClick(item)}/>
+                        </SwiperSlide>
+                    )) : <p>Nenhum item encontrado</p>}
+                    
+                    </Swiper> : 
+                    
+                    <ul id="objetos" className="objetos">
                     { list.length > 0 ? list.map(item => (
                         <Item
                         ref={(el: HTMLLIElement | null) => {
@@ -71,6 +99,8 @@ export default function ItemList({list} : {list: ModelData[]}){
                         
                     )) : <p>Nenhum item encontrado</p>}
                 </ul>
+                }
+                
             </div>
             {tooltipContent && <Tooltip {...tooltipContent}/>}
         </>
