@@ -355,6 +355,7 @@ button:hover{
   overflow-y: auto;
   flex: 1;
 }
+
 .lista ul {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
   scrollbar-width: none;  /* Firefox */
@@ -372,7 +373,7 @@ button:hover{
   pointer-events: none;
 } 
 
-ul::-webkit-scrollbar { 
+.lista ul::-webkit-scrollbar { 
   display: none;  /* Safari and Chrome */
 }
 

@@ -4,11 +4,9 @@ import { useTranslation } from "react-i18next";
 
 interface TopBarProps {
   toggleInfoScreen?: () => void;
-  toggleLock: () => void;
-  isCameraLocked?: boolean;
 }
 
-export default function TopBar({toggleInfoScreen, toggleLock, isCameraLocked} : TopBarProps) {
+export default function TopBar({toggleInfoScreen} : TopBarProps) {
 
   function handleFullscreen() {
     const viewport = document.getElementById('viewport');
