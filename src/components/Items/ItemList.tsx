@@ -1,8 +1,6 @@
 
 import Item from './Item'
-
 import {  useContext, useState, useRef } from 'react'
-
 import ObjectsContext from '../../ObjectsContext'
 import { type ModelData } from '../viewport/Experience'
 import Tooltip from './Tooltip'
@@ -13,7 +11,6 @@ export default function ItemList({list} : {list: ModelData[]}){
     const { currentObjects, setCurrentObjects } = useContext(ObjectsContext)
 
     const [tooltipContent, setTooltipContent] = useState<TooltipProps>()
-
 
     const itemRefs = useRef<Map<string, HTMLLIElement>>(new Map())
     const listaRef = useRef<HTMLDivElement>(null)
@@ -41,7 +38,6 @@ export default function ItemList({list} : {list: ModelData[]}){
         return newSelection;
         });
     }
-
     function handleItemEnter(event : React.MouseEvent<HTMLLIElement>, item: ModelData){
         const rect = event.currentTarget.getBoundingClientRect()
         const listaRect = listaRef.current?.getBoundingClientRect()
