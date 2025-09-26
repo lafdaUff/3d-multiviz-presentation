@@ -54,6 +54,7 @@ export function Experience({
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const [hoveredObject, setHoveredObject] = useState<THREE.Object3D | null>(null);
 
+  const isMobile = window.innerWidth <= 768;
   // Cores para o fundo
   const bgColor = useRadialGradientBackground('#2b2b2b', '#1c1c1c');
 
@@ -141,11 +142,11 @@ export function Experience({
     clearSelection();
   };
 
-  
+  const cameraDistance = isMobile ? 2 : 1;
 
   if (cameraLock) {
     if (controlsRef.current) {
-      camera.position.set(((currentObjects.length - 1) * 1.5) / 2, 0.5, 0.75 * currentObjects.length);
+      camera.position.set(((currentObjects.length - 1) * 1.5) / 2, 0.5, cameraDistance * currentObjects.length);
       camera.lookAt(((currentObjects.length - 1) * 1.5) / 2, 0, 0);
     }
   }

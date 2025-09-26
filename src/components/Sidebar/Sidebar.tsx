@@ -1,10 +1,8 @@
 import ItemList from "../Items/ItemList"
 import SearchBar from "./SearchBar"
-import { useRef, useState  } from "react"
+import { useState  } from "react"
 import { type ModelData } from "../viewport/Experience"
 import MetadataInfo from "./MetadataInfo"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
 
 export default function Sidebar({ objectData, cleanMetadata }: { objectData: ModelData | null, cleanMetadata: () => void }) {
 

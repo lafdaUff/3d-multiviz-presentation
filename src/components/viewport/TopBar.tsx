@@ -30,7 +30,7 @@ export default function TopBar({toggleInfoScreen, toggleLock, isCameraLocked} : 
   
   return (
     <div className="viewportTop flex">
-      <div>
+      <div className="viewportTitle">
             <h5 id="objectName">{t("collection.name")}</h5>
             <p id="objectDesc">{t("collection.desc")}</p>
       </div>
