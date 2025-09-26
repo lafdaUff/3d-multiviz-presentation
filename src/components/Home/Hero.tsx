@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { Experience, type ModelData } from '../viewport/Experience';
+import { Link } from 'react-router';
 
 
 
@@ -44,8 +45,8 @@ export default function Hero() {
             <h1 className="heroTitle">3D MultiViz</h1>
             <p className="heroDescription">O 3D-MultiViz é um protótipo de multivisualizador gratuito baseado em software de código aberto.</p>
             <div className="flex heroButtons">
-                <button>Ver Demos</button>
-                <button className="heroButton">Saiba Mais</button>
+                <a href="/#demos"><button>Ver Demos</button></a>
+                <Link to="/about"><button className="heroButton">Saiba Mais</button></Link>
             </div>
         </div>
         <div className="heroGrid">
