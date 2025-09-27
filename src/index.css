@@ -482,8 +482,10 @@ button:hover{
   }
   .side-menu{
     width: 100%;
+    min-height: 20svh;
     z-index: 10;
     padding: 10px;
+    flex-grow: 1;
     gap: 10px;
     left: 0;
     bottom: 0;
