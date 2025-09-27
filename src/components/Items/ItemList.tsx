@@ -1,15 +1,14 @@
 
 import Item from './Item'
-
-import {  useContext, useState, useRef } from 'react'
-
+import {  useContext, useState, useRef, useEffect } from 'react'
 import ObjectsContext from '../../ObjectsContext'
 import { type ModelData } from '../viewport/Experience'
 import Tooltip from './Tooltip'
 import { type TooltipProps } from './Tooltip'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import { A11y } from 'swiper/modules';
-import 'swiper/css.css';
+import type { Swiper as SwiperType } from 'swiper';
+
 
 export default function ItemList({list} : {list: ModelData[]}){
 
@@ -17,11 +16,24 @@ export default function ItemList({list} : {list: ModelData[]}){
 
     const [tooltipContent, setTooltipContent] = useState<TooltipProps>()
 
-
     const itemRefs = useRef<Map<string, HTMLLIElement>>(new Map())
     const listaRef = useRef<HTMLDivElement>(null)
     
     const isMobile = window.innerWidth <= 768
+
+    // Show tooltip for initial slide on mobile
+    useEffect(() => {
+        if (isMobile && list.length > 0) {
+            const listaRect = listaRef.current?.getBoundingClientRect()
+            if (listaRect) {
+                const item = list[0] // Initial slide is at index 0
+                setTooltipContent({
+                    location: {x: listaRect.left + listaRect.width / 2, y: listaRect.top - 50}, 
+                    content: {title: item.nome, desc: item.descricao}
+                })
+            }
+        }
+    }, [isMobile, list])
 
     function handleItemClick(item: ModelData) {
         setCurrentObjects((prevSelected) => {
@@ -32,14 +44,7 @@ export default function ItemList({list} : {list: ModelData[]}){
             newSelection = [...prevSelected, item];
         }
 
-        const el = itemRefs.current.get(item.link);
-        if (el) {
-            el.scrollIntoView({
-            behavior: "smooth",
-            inline: "center", 
-            block: "nearest",
-            });
-        }
+        
 
         return newSelection;
         });
@@ -47,12 +52,23 @@ export default function ItemList({list} : {list: ModelData[]}){
 
     function handleItemEnter(event : React.MouseEvent<HTMLLIElement>, item: ModelData){
         const rect = event.currentTarget.getBoundingClientRect()
-        const listaRect = listaRef.current?.getBoundingClientRect()
-        if(isMobile && listaRect){
-            setTooltipContent({location: {x: listaRect.left + listaRect.width / 3, y: listaRect.top - 50}, content: {title: item.nome, desc: item.descricao}})
-            return
-        }
         setTooltipContent({location: {x: rect.right + 10, y: rect.top}, content: {title: item.nome, desc: item.descricao}})
+    }
+
+    function handleSlideChange(swiper: SwiperType) {
+        const currentIndex = swiper.activeIndex
+        
+        if (list[currentIndex] && isMobile) {
+            const listaRect = listaRef.current?.getBoundingClientRect()
+            if (listaRect) {
+                const item = list[currentIndex]
+                setTooltipContent({
+                    location: {x: listaRect.left + listaRect.width / 2, y: listaRect.top - 30}, 
+                    content: {title: item.nome},
+                    origin: 'center'
+                })
+            }
+        }
     }
 
     return(
@@ -63,10 +79,12 @@ export default function ItemList({list} : {list: ModelData[]}){
                     isMobile ? 
                     <Swiper
                         modules={[ A11y]} 
-                        spaceBetween={5}
+                        spaceBetween={15}
                         slidesPerView={3}
                         scrollbar={{ draggable: true }}
                         initialSlide={0}
+                        centeredSlides={true}
+                        onSlideChange={handleSlideChange}
                     >
                     { list.length > 0 ? list.map(item => (
                         <SwiperSlide key={item.link}>
@@ -76,8 +94,8 @@ export default function ItemList({list} : {list: ModelData[]}){
                                 }}
                                 selected={currentObjects.includes(item)}
                                 item={{image: item.thumb}}
-                                onMouseEnter={(event) => handleItemEnter(event, item)}
-                                onMouseLeave={() => setTooltipContent(undefined)}
+                                onMouseEnter={() => {}} // No mouse enter for mobile swiper
+                                onMouseLeave={() => {}} // No mouse leave for mobile swiper
                                 onClick = {() => handleItemClick(item)}/>
                         </SwiperSlide>
                     )) : <p>Nenhum item encontrado</p>}

@@ -18,7 +18,7 @@ export default function ModeSelector() {
 
     function handleTooltip(event : React.MouseEvent<HTMLElement>, text: string, img?: string){
         const rect = event.currentTarget.getBoundingClientRect();
-        setTooltipContent({location: {x: rect.left, y: rect.bottom + 10}, content: {title: text, img}});
+        setTooltipContent({location: {x: rect.left + rect.width / 2, y: rect.bottom + 90}, content: {title: text, img}, origin: 'center'});
     }
 
     const { currentMode, setCurrentMode } = useContext(ModeContext);
