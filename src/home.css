@@ -76,7 +76,27 @@ nav i {
 .demo h2{
     line-height: 1;
 }
+.demo.userCard{
+    gap: 12px;
+    justify-content: flex-start;
 
+}
+.aboutPageItem{
+    max-width: 1440px;
+    padding: 40px;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+.userCards.row{
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.socialLinks{
+    gap: 12px;
+}
 .demoText{
     flex-direction: column;
     gap: 12px;
@@ -146,5 +166,12 @@ nav i {
     .footer{
         padding: 20px;
         text-align: center;
+    }
+    .userCards.row{
+    flex-direction: column;
+    }
+    .demo.userCard{
+        flex-direction: row;
+        margin: 0;
     }
 }
