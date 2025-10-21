@@ -1,10 +1,9 @@
 import { type ModelData } from "../viewport/Experience"
 import searchInItems from "./search"
-import database from '../../data/database.json' with { type: 'json' }
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 
-export default function SearchBar({ onSearch }: { onSearch: (items: ModelData[]) => void }) {
+export default function SearchBar({ onSearch, database }: { onSearch: (items: ModelData[]) => void, database: ModelData[] }) {
 
     const { t } = useTranslation();
 
@@ -15,7 +14,7 @@ export default function SearchBar({ onSearch }: { onSearch: (items: ModelData[])
 
     useEffect(() => {
         onSearch(database) 
-    }, [])
+    }, [database, onSearch])
 
     return(
         <div className="searchBar flex">

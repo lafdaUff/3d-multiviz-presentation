@@ -6,7 +6,7 @@ import { useState } from 'react'
 import ObjectsContext from './ObjectsContext'
 import Viewport from './components/viewport/Viewport'
 import './i18n'
-import database from './data/databaseacervolafda.json' with { type: 'json' }
+import database from './data/datamascaras.json' with { type: 'json' }
 
 
 function App() {
