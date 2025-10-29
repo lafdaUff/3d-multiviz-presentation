@@ -12,6 +12,7 @@ nav a{
     text-decoration: none;
 }
 nav ul{
+    padding: 0;
     gap: 20px;
     flex-direction: row;
     align-items: center;
@@ -21,6 +22,9 @@ nav ul li{
 }
 nav i {
     font-size: var(--step-1);
+}
+.socialMedia{
+    gap: 5px;
 }
 .homeHero{
     max-width: 1440px;

@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 export default function Footer() {
+  const { t } = useTranslation();
+  
   return (
     <footer className="footer flex column">
-      <p>&copy; 2025 - Laboratório de Artefatos Físicos, Digitais e Algorítmicos</p>
+      <p>{t('home.footer.copyright')}</p>
     </footer>
   );
 }

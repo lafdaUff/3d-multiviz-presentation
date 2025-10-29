@@ -1,10 +1,12 @@
 import { Canvas } from '@react-three/fiber';
 import { Experience, type ModelData } from '../viewport/Experience';
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 
 
 export default function Hero() {
+    const { t } = useTranslation();
 
     function onObjectSelect(data: ModelData | null) {
         // Placeholder function for object selection
@@ -42,11 +44,11 @@ export default function Hero() {
   return (
     <section className="homeHero flex">
         <div className="heroContent flex">
-            <h1 className="heroTitle">3D MultiViz</h1>
-            <p className="heroDescription">O 3D-MultiViz é um protótipo de multivisualizador gratuito baseado em software de código aberto.</p>
+            <h1 className="heroTitle">{t('home.hero.title')}</h1>
+            <p className="heroDescription">{t('home.hero.description')}</p>
             <div className="flex heroButtons">
-                <a href="/#demos"><button>Ver Demos</button></a>
-                <Link to="/about"><button className="heroButton">Saiba Mais</button></Link>
+                <a href="/#demos"><button>{t('home.hero.viewDemos')}</button></a>
+                <Link to="/about"><button className="heroButton">{t('home.hero.learnMore')}</button></Link>
             </div>
         </div>
         <div className="heroGrid">

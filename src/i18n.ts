@@ -41,7 +41,60 @@ i18n
             "step3": {"label": "Mode", "description": "Right click + drag / two-finger drag (touch)"},
             "step4": {"label": "Select", "description": "Left click / single tap (touch)"}
           },
-          "search": {"placeholder": "Search"}
+          "search": {"placeholder": "Search"},
+          "home": {
+            "header": {
+              "learnMore": "Learn More",
+              "wiki": "Wiki"
+            },
+            "hero": {
+              "title": "3D MultiViz",
+              "description": "3D-MultiViz is a free multi-viewer prototype based on open-source software.",
+              "viewDemos": "View Demos",
+              "learnMore": "Learn More"
+            },
+            "demos": {
+              "demo": "Demo",
+              "accessDemo": "Access Demo",
+              "demo1": {
+                "title": "Mask Collection",
+                "description": "A collection previously digitized in Lafda extension projects, used to validate the first version of the prototype. It served as a basis for structuring the concept of simultaneous multi-visualization and adjusting the navigation experience."
+              },
+              "demo2": {
+                "title": "Lafda Collection",
+                "description": "Souvenirs and handicraft pieces collected by the laboratory coordinator, which will be displayed in a third demonstration. This personal-academic collection demonstrates the tool's potential to represent hybrid sets, bringing together everyday objects and cultural references from different origins."
+              },
+              "demo3": {
+                "title": "Pucará Bulls",
+                "description": "Traditional ceramic pieces from the Andes, integrated into the second demonstration, focusing on how the multi-viewer can be used to compare 3D models digitized with different techniques and devices."
+              }
+            },
+            "footer": {
+              "copyright": "© 2025 - Laboratory of Physical, Digital and Algorithmic Artifacts"
+            }
+          },
+          "about": {
+            "title": "About 3D MultiViz",
+            "whatIs": {
+              "title": "What is 3D MultiViz?",
+              "description": "3D-MultiViz is an offshoot of the research project \"Visualization of Cultural Collections\", developed within the research line \"Technologies and languages for registration, visualization and dissemination of cultural heritage\", conducted by Lafda-UFF - Laboratory of Physical, Digital and Algorithmic Artifacts. The investigation starts from a central identified problem: although there are important advances in 3D model viewers for web interfaces, most applications are limited to isolated visualization of three-dimensional objects. This makes comparative analysis between pieces difficult. 3D-MultiViz addresses this challenge by proposing an interactive interface that allows exploring multiple 3D objects in the same scene, expanding the possibilities for academic analysis, public engagement and cultural dissemination."
+            },
+            "multiVisualization": {
+              "title": "Multi-visualization",
+              "description": "Free and open-source viewers such as Smithsonian Voyager, Kompakkt and 3DHOP offer presentation and annotation modes for 3D models, but still focus on individual artifact display. 3D-MultiViz advances in this scenario by introducing the concept of multi-visualization — the possibility of gathering and simultaneously manipulating several three-dimensional models in the same interactive space. This differential expands the tool's application potential, allowing side-by-side comparisons, dynamic curatorial narratives and the creation of shared digital scenarios for collections. For the field of cultural heritage, this means new ways to represent contexts, thematic relationships and historical connections between objects, favoring both scientific analysis and public appreciation."
+            },
+            "team": {
+              "title": "Team",
+              "otavio": {
+                "name": "Otávio Sousa Araujo",
+                "role": "Research, UI/UX Design and Development"
+              },
+              "julia": {
+                "name": "Júlia Giannella",
+                "role": "Coordination and supervision"
+              }
+            }
+          }
         }
       },
       pt: {
@@ -60,7 +113,60 @@ i18n
             "step3": {"label": "Modo", "description": "Clique direito + arraste / Arraste com dois dedos (touch)"},
             "step4": {"label": "Selecionar", "description": "Clique esquerdo / toque único (touch)"}
           },
-            "search": {"placeholder": "Pesquisar"}
+          "search": {"placeholder": "Pesquisar"},
+          "home": {
+            "header": {
+              "learnMore": "Saiba Mais",
+              "wiki": "Wiki"
+            },
+            "hero": {
+              "title": "3D MultiViz",
+              "description": "O 3D-MultiViz é um protótipo de multivisualizador gratuito baseado em software de código aberto.",
+              "viewDemos": "Ver Demos",
+              "learnMore": "Saiba Mais"
+            },
+            "demos": {
+              "demo": "Demo",
+              "accessDemo": "Acessar Demo",
+              "demo1": {
+                "title": "Coleção de Máscaras",
+                "description": "conjunto previamente digitalizado em projetos de extensão do Lafda, utilizado para validar a primeira versão do protótipo. Serviu como base para estruturar o conceito de multivisualização simultânea e ajustar a experiência de navegação."
+              },
+              "demo2": {
+                "title": "Acervo do Lafda",
+                "description": "Souvenirs e peças de artesanato colecionados pela coordenadora do laboratório, que serão exibidos em uma terceira demonstração. Esse acervo pessoal-acadêmico evidencia o potencial da ferramenta para representar conjuntos híbridos, reunindo objetos cotidianos e referências culturais de diferentes origens."
+              },
+              "demo3": {
+                "title": "Toritos de Pucará",
+                "description": "Peças de cerâmica tradicionais dos Andes, integradas à segunda demonstração, com foco em como o multivisualizador pode ser utilizado para comparar modelos 3D digitalizados com diferentes técnicas e dispositivos."
+              }
+            },
+            "footer": {
+              "copyright": "© 2025 - Laboratório de Artefatos Físicos, Digitais e Algorítmicos"
+            }
+          },
+          "about": {
+            "title": "Sobre o 3D MultiViz",
+            "whatIs": {
+              "title": "O que é o 3D MultiViz?",
+              "description": "O 3D-MultiViz é um desdobramento do projeto de pesquisa \"Visualização de Coleções Culturais\", desenvolvido no âmbito da linha de pesquisa \"Tecnologias e linguagens para registro, visualização e difusão do patrimônio cultural\", conduzida pelo Lafda-UFF – Laboratório de Artefatos Físicos, Digitais e Algorítmicos. A investigação parte de um problema central identificado: embora existam avanços importantes em visualizadores de modelos 3D para interfaces web, a maioria das aplicações limitam-se à visualização isolada de objetos tridimensionais. Isso dificulta a análise comparativa entre peças. O 3D-MultiViz responde a esse desafio ao propor uma interface interativa que permite explorar múltiplos objetos 3D em uma mesma cena, ampliando as possibilidades de análise acadêmica, engajamento público e difusão cultural."
+            },
+            "multiVisualization": {
+              "title": "Multivisualização",
+              "description": "Visualizadores gratuitos e de código aberto como o Smithsonian Voyager, o Kompakkt e o 3DHOP oferecem modos de apresentação e anotação de modelos 3D, mas ainda se concentram na exibição individual de artefatos. O 3D-MultiViz avança nesse cenário ao introduzir o conceito de multivisualização  — a possibilidade de reunir e manipular simultaneamente vários modelos tridimensionais em um mesmo espaço interativo. Esse diferencial amplia o potencial de aplicação da ferramenta, permitindo comparações lado a lado, narrativas curatoriais dinâmicas e a criação de cenários digitais compartilhados para coleções. Para o campo do patrimônio cultural, isso significa novas formas de representar contextos, relações temáticas e conexões históricas entre objetos, favorecendo tanto a análise científica quanto a apreciação pública."
+            },
+            "team": {
+              "title": "Equipe",
+              "otavio": {
+                "name": "Otávio Sousa Araujo",
+                "role": "Pesquisa, UI/UX Design e Desenvolvimento"
+              },
+              "julia": {
+                "name": "Júlia Giannella",
+                "role": "Coordenação e supervisão"
+              }
+            }
+          }
         }
       }
     },

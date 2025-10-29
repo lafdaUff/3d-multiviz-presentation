@@ -1,8 +1,8 @@
 [
     {
-        "Data de criação":{
+        "Data de aquisição":{
             "type": "date",
-            "description": "The date when the object was created."
+            "description": "The date when the object was acquired."
         }
     },
     {
@@ -15,6 +15,12 @@
         "País": {
             "type": "string",
             "description": "The country of origin of the object."
+        }
+    },
+    {
+        "Cidade": {
+            "type": "string",
+            "description": "The city of origin of the object."
         }
     },
     {
@@ -34,15 +40,21 @@
         }
     },
     {
-        "Tamanho": {
+        "Dimensões": {
             "type": "string",
-            "description": "The size of the object."
+            "description": "The dimensions of the object."
         }
     },
     {
         "Cor": {
             "type": "string",
             "description": "The color of the object."
+        }
+    },
+    {
+        "Modelo 3D": {
+            "type": "link",
+            "description": "Link to the 3D model of the object."
         }
     }
 ]
