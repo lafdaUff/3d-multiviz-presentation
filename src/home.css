@@ -8,6 +8,65 @@
     justify-content: space-between;
     align-items: center;
 }
+select, ::picker(select){
+    appearance: base-select;
+}
+#language{
+    background: none;
+    color: var(--text-color);
+    transition: 0.3s;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    gap: 5px;
+}
+#language:hover{
+    cursor: pointer;
+}
+#language::picker-icon{
+    color: transparent;
+    transition: rotate 0.4s;
+    width: 14px;
+    height: 14px;
+    background: url(./chevron-down.svg);
+    background-size: contain;
+    background-position: center;
+    align-self: center;
+    background-repeat: no-repeat;
+}
+#language:hover::picker-icon{
+    color: transparent;
+}
+
+#language:open::picker-icon{
+    rotate: 180deg;
+}
+::picker(select){
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    border-top: 1px solid var(--text-color);
+    padding: 2px 0;
+    margin-top: 2px;
+}
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 0;
+}
+option:hover {
+    cursor: pointer;
+    background: none;
+    color: var(--text-color);
+}
+option::checkmark{
+    display: none;
+}
+option:checked{
+    display: none;
+}
 nav a{
     text-decoration: none;
 }
