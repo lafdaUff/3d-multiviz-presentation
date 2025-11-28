@@ -70,7 +70,7 @@ i18n
               }
             },
             "footer": {
-              "copyright": "© 2025 - Laboratory of Physical, Digital and Algorithmic Artifacts"
+              "copyright": "© 2025 - Laboratório de Artefatos Físicos, Digitais e Algorítmicos"
             }
           },
           "about": {
@@ -214,7 +214,7 @@ i18n
               }
             },
             "footer": {
-              "copyright": "© 2025 - Laboratorio de Artefactos Físicos, Digitales y Algorítmicos"
+              "copyright": "© 2025 - Laboratório de Artefatos Físicos, Digitais e Algorítmicos"
             }
           },
           "about": {
