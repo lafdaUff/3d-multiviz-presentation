@@ -150,9 +150,28 @@ small{
   color: var(--text-color);
 }
 
+.viewport-config{
+  position: relative;
+}
+
+.viewport-config-selector{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--text-color);
+  border-radius: 30px;
+  color: var(--text-color);
+}
+
 .mode-button{
   background: none;
-  padding: 10px 14px;
+  padding: 10px 12px;
   border-radius: 30px;
   pointer-events: all;
   display: block;

@@ -1,6 +1,6 @@
 import { useMemo, useState, useRef} from 'react';
 import * as THREE from 'three';
-import { OrbitControls, PresentationControls } from '@react-three/drei';
+import { DragControls, Grid, OrbitControls, PresentationControls } from '@react-three/drei';
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { EffectComposer, Outline } from '@react-three/postprocessing';
 import { useThree, useFrame } from '@react-three/fiber';
@@ -53,6 +53,7 @@ export function Experience({
   const { camera } = useThree();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const [hoveredObject, setHoveredObject] = useState<THREE.Object3D | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const isMobile = window.innerWidth <= 768;
   // Cores para o fundo
@@ -81,13 +82,11 @@ export function Experience({
   const focusOnObject = (modelData: ModelData, position: THREE.Vector3) => {
     if (!controlsRef.current) return;
     if (cameraLock) return;
-
     
     gsap.killTweensOf([controlsRef.current.target, camera.position]);
 
     
     onObjectSelect(modelData);
-    console.log('Focando no objeto:', modelData.nome);
 
    
     controlsRef.current.enabled = false;
@@ -131,11 +130,14 @@ export function Experience({
 
   
   const handleModelClick = (modelLink: string, targetPosition: THREE.Vector3) => {
+    if (isDragging) return; 
+    
     const modelData = data.find(item => item.link === modelLink);
     if (modelData) {
       focusOnObject(modelData, targetPosition);
     }
   };
+  
 
   
   const handleBackgroundClick = () => {
@@ -166,6 +168,7 @@ export function Experience({
         enabled={!cameraLock && (isMaster || !syncedCameraRef)} 
         dampingFactor={0.25} 
         makeDefault 
+        
       />
 
       {/* Background para capturar cliques */}
@@ -174,24 +177,54 @@ export function Experience({
         <meshBasicMaterial transparent opacity={0} />
       </mesh>
 
+      {(!cameraLock && !syncedCameraRef) && (
+        <Grid infiniteGrid cellColor="gray" sectionColor="#2b2b2b" cellSize={1} sectionSize={2} fadeDistance={70} fadeStrength={0.5} />
+      )}
+      
+
       {/* Renderiza todos os modelos do arquivo de dados */}
       {currentObjects.map((modelInfo, index) => (
-        <group key={modelInfo.link} position={[index * 1.5, 0, 0]}>
-          <PresentationControls 
-            cursor={false}
-            enabled={cameraLock}
-            polar={[-Infinity, Infinity]}
-            snap={true}
-            speed={1.5}
-            global={true}
-          >
+        <group key={modelInfo.link} position={[index * 1.5, 0, 0]} >
+          {cameraLock ? (
+            <PresentationControls 
+              cursor={false}
+              enabled={true}
+              polar={[-Infinity, Infinity]}
+              snap={true}
+              speed={1.5}
+              global={true}
+            >
+              <Model
+                modelLink={modelInfo.link}
+                positionMode='center'
+                onHover={setHoveredObject}
+                onClick={handleModelClick}
+              />
+            </PresentationControls>
+          ) : syncedCameraRef ? (
             <Model
               modelLink={modelInfo.link}
-              position={[0, 0, 0]} // Reset to origin since group handles positioning
+              positionMode='base'
               onHover={setHoveredObject}
               onClick={handleModelClick}
             />
-          </PresentationControls>
+          ) : 
+          (
+            <DragControls
+              axisLock='y'
+              autoTransform={true}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={() => setTimeout(() => setIsDragging(false), 0)}
+            >
+              <Model
+                modelLink={modelInfo.link}
+                positionMode='base'
+                onHover={setHoveredObject}
+                onClick={handleModelClick}
+              />
+            </DragControls>
+          )
+          }
         </group>
       ))}
       
