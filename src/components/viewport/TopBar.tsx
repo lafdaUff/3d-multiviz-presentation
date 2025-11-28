@@ -1,14 +1,12 @@
-import i18n from "../../i18n";
+import { Link } from "react-router";
 import ModeSelector from "./ModeSelector";
 import { useTranslation } from "react-i18next";
 
 interface TopBarProps {
   toggleInfoScreen?: () => void;
-  toggleLock: () => void;
-  isCameraLocked?: boolean;
 }
 
-export default function TopBar({toggleInfoScreen, toggleLock, isCameraLocked} : TopBarProps) {
+export default function TopBar({toggleInfoScreen} : TopBarProps) {
 
   function handleFullscreen() {
     const viewport = document.getElementById('viewport');
@@ -20,11 +18,7 @@ export default function TopBar({toggleInfoScreen, toggleLock, isCameraLocked} : 
       }
     }
   }
-  function toggleLanguage() {
-    const currentLang = i18n.language;
-    const newLang = currentLang === 'en' ? 'pt' : 'en';
-    i18n.changeLanguage(newLang);
-  }
+
 
   const { t } = useTranslation();
   
@@ -35,9 +29,11 @@ export default function TopBar({toggleInfoScreen, toggleLock, isCameraLocked} : 
             <p id="objectDesc">{t("collection.desc")}</p>
       </div>
       <div className="viewportInteraction flex">
-        <p id="lock-btn" className="viewportBtn" onClick={toggleLanguage}>
-            <strong>{i18n.language === 'pt' ? 'PT' : 'EN'}</strong>
+        <Link to={"/"}>
+        <p className="viewportBtn">
+          <i className="fa-solid fa-house"></i>
         </p>
+        </Link>
         <ModeSelector />
         <p id="help-mode-btn" className="viewportBtn" onClick={toggleInfoScreen}>
             <i className="fa-regular fa-circle-question"></i>

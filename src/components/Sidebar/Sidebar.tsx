@@ -1,10 +1,10 @@
 import ItemList from "../Items/ItemList"
 import SearchBar from "./SearchBar"
-import { useState  } from "react"
+import {  useState  } from "react"
 import { type ModelData } from "../viewport/Experience"
 import MetadataInfo from "./MetadataInfo"
 
-export default function Sidebar({ objectData, cleanMetadata }: { objectData: ModelData | null, cleanMetadata: () => void }) {
+export default function Sidebar({ objectData, cleanMetadata, database }: { objectData: ModelData | null, cleanMetadata: () => void, database: ModelData[] }) {
 
   // const backBtn = useRef<HTMLButtonElement>(null)
   
@@ -25,7 +25,7 @@ export default function Sidebar({ objectData, cleanMetadata }: { objectData: Mod
               { objectData && (
                 <button onClick={cleanMetadata} ><i className="fa-solid fa-arrow-left"></i></button>
               )}
-              <SearchBar onSearch={setFilteredItems}/>
+              <SearchBar onSearch={setFilteredItems} database={database}/>
           </div>
           {objectData ? (
             <MetadataInfo objectData={objectData} />

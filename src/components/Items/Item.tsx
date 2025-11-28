@@ -10,7 +10,7 @@ interface ItemProps{
 
 export default function Item({selected, item, ref, onClick, onMouseEnter, onMouseLeave}: ItemProps){
     
-    const classNames = `selectable-item ${selected ? "selected" : ""}`
+    const classNames = `selectable-item ${selected ? "selectedItem" : ""}`
 
     return(
         <li ref={ref} className={classNames} style={{backgroundImage: `url(thumbs/${item.image}.png)` }} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

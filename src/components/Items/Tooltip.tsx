@@ -9,15 +9,16 @@ export interface TooltipProps {
         desc?: string
         img?: string
     }
-    timeout?: number // Optional timeout in milliseconds
+    timeout?: number 
+    origin?: 'top-left' | 'center'
 }
 
-export default function Tooltip({location = {x: 1, y: 2}, content, timeout = 3000} : TooltipProps ){
+export default function Tooltip({location = {x: 1, y: 2}, content, timeout = 3000, origin='top-left'} : TooltipProps ){
     const [isVisible, setIsVisible] = useState(true)
     const timeoutRef = useRef<number | null>(null)
 
     useEffect(() => {
-        // Check if device is mobile
+        
         const isMobile = window.innerWidth <= 768 || 'ontouchstart' in window
 
         setIsVisible(true)
@@ -38,8 +39,10 @@ export default function Tooltip({location = {x: 1, y: 2}, content, timeout = 300
         return null
     }
 
+    const tooltipClass = `tooltip ${origin === 'center' ? 'center-origin' : ''}`
+
     return(
-        <div className="tooltip" id="global-tooltip" style={{top: location.y, left: location.x}}>
+        <div className={tooltipClass} id="global-tooltip" style={{top: location.y, left: location.x}}>
             <div className="tooltip-content">
                 {content.img && <img src={content.img} alt={content.title} />}
                 <p className="bold">{content.title}</p>

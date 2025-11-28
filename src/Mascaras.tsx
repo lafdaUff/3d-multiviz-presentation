@@ -6,6 +6,7 @@ import { useState } from 'react'
 import ObjectsContext from './ObjectsContext'
 import Viewport from './components/viewport/Viewport'
 import './i18n'
+import database from './data/datamascaras.json' with { type: 'json' }
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
   return (
     <div className='hero flex'>
       <ObjectsContext.Provider value={{currentObjects, setCurrentObjects}}>
-        <Sidebar objectData={selectedMetadata} cleanMetadata={cleanMetadata} />
+        <Sidebar objectData={selectedMetadata} cleanMetadata={cleanMetadata} database={database} />
         <Viewport onObjectSelect={handleObjectSelect}/>
       </ObjectsContext.Provider>
     </div>

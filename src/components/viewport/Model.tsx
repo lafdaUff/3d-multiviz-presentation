@@ -26,12 +26,7 @@ export default function Model({modelLink, positionMode, onHover, onClick} : Mode
         return clone
     }, [scene, modelLink])
 
-    const bottomY = useMemo(() => {
-        const boundingBox = new THREE.Box3().setFromObject(clonedScene)
-        return boundingBox.min.y
-    }, [clonedScene])
-
-
+    
 
     function handleClick(event: ThreeEvent<MouseEvent>) {
         event.stopPropagation()
