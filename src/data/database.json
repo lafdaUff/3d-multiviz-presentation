@@ -225,5 +225,29 @@
       "nome": "Folha",
       "link": "folha",
       "thumb": "folha"
+    },
+    {
+      "nome": "Android",
+      "link": "toritos-android",
+      "thumb": "toritos-android",
+      "descricao": "Torito escaneado com Smartphone Android via Polycam"
+    },
+    {
+      "nome": "IOS",
+      "link": "toritos-ios",
+      "thumb": "toritos-ios",
+      "descricao": "Torito escaneado com Smartphone IOS via Polycam"
+    },
+    {
+      "nome": "Câmera",
+      "link": "toritos-camera",
+      "thumb": "toritos-camera",
+      "descricao": "Torito escaneado com Câmera via Polycam"
+    },
+    {
+      "nome": "Escaner",
+      "link": "toritos-scanner",
+      "thumb": "toritos-scanner",
+      "descricao": "Torito escaneado com Scanner Creality"
     }
   ]

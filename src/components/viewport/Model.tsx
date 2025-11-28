@@ -7,13 +7,13 @@ import type { ThreeEvent } from '@react-three/fiber';
 
 interface ModelProps{
     modelLink: string
-    position: [number, number, number]
+    positionMode: 'center' | 'base'
     onHover: (mesh: THREE.Object3D | null) => void
     onClick: (modelLink: string, targetPosition: THREE.Vector3) => void
 }
 
 
-export default function Model({modelLink, position, onHover, onClick} : ModelProps){
+export default function Model({modelLink, positionMode, onHover, onClick} : ModelProps){
     const { scene } = useGLTF(`/modelos/${modelLink}.glb`)
 
     const clonedScene = useMemo(() => {
@@ -26,7 +26,12 @@ export default function Model({modelLink, position, onHover, onClick} : ModelPro
         return clone
     }, [scene, modelLink])
 
-    
+    const bottomY = useMemo(() => {
+        const boundingBox = new THREE.Box3().setFromObject(clonedScene)
+        return boundingBox.min.y
+    }, [clonedScene])
+
+
 
     function handleClick(event: ThreeEvent<MouseEvent>) {
         event.stopPropagation()
@@ -49,7 +54,7 @@ export default function Model({modelLink, position, onHover, onClick} : ModelPro
      return (
         <primitive
             object={clonedScene}
-            position={position}
+            position={positionMode === 'base' ? [0, -bottomY, 0] : [0, 0, 0]}
             onClick={handleClick}
             onPointerOver={handlePointerOver}
             onPointerOut={handlePointerOut}

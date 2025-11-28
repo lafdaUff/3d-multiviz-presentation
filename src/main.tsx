@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router'
 import { Route, Routes } from 'react-router'
 import About from './About.tsx';
 import Mascaras from './Mascaras.tsx';
+import Toritos from './Toritos.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/acervo-lafda" element={<AcervoLafda />} />
         <Route path="/mascaras" element={<Mascaras />} />
+        <Route path="/toritos" element={<Toritos />} />
         <Route path="/*" element={<Home />} />
         <Route path="/about" element={<About />} />
       </Routes>
